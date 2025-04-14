@@ -1,0 +1,20 @@
+{% extends 'base_template.html' %}
+
+{% block styles %}
+    <link rel="stylesheet" href="/static/css/signup_link_send.css">
+{% endblock %}
+
+{% block title %}
+    StarInvest - Ошибка
+{% endblock %}
+    
+{% block content %}
+<div class="contnet_error">
+    <h1>Регистрация</h1>
+    <hr>
+    <div class="link_error_content">
+        Ссылка для регистрации была успешно отправлена вам на почту!<br>
+    <span class="warning_text">Внимание! Ссылка может быть отправленна в спам.</span>
+    </div>
+</div>
+{% endblock %}  

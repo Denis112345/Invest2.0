@@ -1,0 +1,139 @@
+{% extends 'base_template.html' %}
+
+{% block styles %}
+    <link rel="stylesheet" href="/static/css/AllInvestProjects_styles.css">
+{% endblock %}
+
+{% block title %}
+    StarInvest - Главная
+{% endblock %}
+    
+{% block title_page %}Главная{% endblock %}
+
+{% block content %}
+<div class="container">
+
+    <div class="search">
+        <div class="search_input_container">
+            <input placeholder="Поиск" type="text">
+            <div class="search_img_container">
+                <img src="/static/img/search_icon.svg"  alt="">
+            </div>
+        </div>
+        <a href="#" class="add_project_button">
+            Добавить свой проект
+        </a>
+        <div class="location_mark">
+            <img src="/static/img/location_icon.svg" alt="">
+            <span>Тюмень</span>
+        </div>
+    </div>
+    <div class="categories">
+        <div class="categories_menu">
+            <span class="categories_title">
+                Категории
+            </span>
+            {% for category in categories %}
+            <div class="category">
+                {{category.title}}
+            </div>
+            {% endfor %}
+        </div>
+        <div class="categories_menu_items">
+
+        </div>
+        <template id="category_template">
+            <div class="category">
+                <img src="/static/img/cross_icon.svg" alt="">
+                Экология
+            </div>
+        </template>
+    </div>
+    <h2 class="items_title">Инвестпроекты</h2>
+    <div class="container_items">
+    </div>
+    <div class="pagination">
+        <div class="pagination_arrow pagination_arrow_left">
+            <img src="/static/img/pagination_arrow_left.svg" alt="">
+        </div>
+        <div class="paginaition_items">
+            <div class="pagination_item pagination_item_active">
+                1
+            </div>
+            <div class="pagination_item">
+                2
+            </div>
+            <div class="pagination_item">
+                3
+            </div>
+            <div class="pagination_item">
+                4
+            </div>
+            <div class="pagination_item">
+                5
+            </div>
+            <div class="pagination_item">
+                6
+            </div>
+            <div class="pagination_item">
+                7
+            </div>
+            <div class="pagination_item">
+                8
+            </div>
+            <div class="pagination_item">
+                9
+            </div>
+            <div class="pagination_item">
+                10
+            </div>
+            <div class="pagination_item pagination_next_numbers">
+                ●●●
+            </div>
+            <div class="pagination_item">
+                100+
+            </div>
+        </div>
+        <div class="pagination_arrow pagination_arrow_left">
+            <img src="/static/img/pagination_arrow_right.svg" alt="">
+        </div>
+    </div>
+</div>
+
+<template id="advertisement_template">
+    <div class="advertisement"><h1>РЕКЛАМА</h1></div>
+</template>
+
+<template id="item_template">
+    <div class="item_container">
+        <span class="date_post">1 января 2023, 12:01</span>
+        <div class="item">
+            <div class="item_category"><a class="item_category_a" href="#">Экология</a></div>
+            <a class="item_image_a" href="#">
+                <img class="item_image" src="/static/img/park.png" alt="" >
+            </a>
+            <div class="item_info">
+                <h2 class="info_title"><a class="info_title_a" href="#">Эко-парк “Лиственник”</a></h2>
+                    <div class="info_metrics">
+                    <div class="metrics_metric metric_attachments">
+                        <span class="metric_help_text metric_attachments--help_text">Вложения</span>
+                        <span class="metric_info      metric_attachments--info">1млн ₽</span>
+                    </div>
+                    <div class="metrics_metric metric_attachments">
+                        <span class="metric_help_text         metric_profitability--help_text">Доходность</span>
+                        <span class="metric_profitability     metric_profitability--info">20%</span>
+                    </div>
+                    <div class="metrics_metric metric_income">
+                        <span class="metric_info">
+                            Прибыль есть
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</template>
+<script src="/static/js/AllInvestProjectsScripts.js"></script>
+
+{% endblock %}

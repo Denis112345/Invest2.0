@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/base_template_styles.css' %}">
+    <link rel="shortcut icon" href="{% static 'img/logo.svg' %}" />
+    {% block styles %}{% endblock %}
+    <title>{% block title %}{% endblock %}</title>
+</head>
+<body>
+    <div>
+        <header>
+            <div class="left_header">
+                <div class="overlay"></div>
+                <div class="burger_menu">
+                    <div class="menu_line"></div>
+                    <div class="menu_line"></div>
+                    <div class="menu_line"></div>
+                </div>
+                <div class="burger_menu_sub_menu">
+                    <div class="sub_menu_container">
+                        <div class="sub_menu_container_item">
+                            {% if user.is_authenticated %}
+                            <img src="/static/img/burger_menu_profile.svg" alt="">
+                            <a href="{% url 'profile' user.id %}">Профиль</a>
+                            {% else %}
+                                <img src="/static/img/burger_menu_profile.svg" alt="">
+                                <a href="{% url 'signup' %}">Профиль</a>
+                            {% endif %}  
+                        </div>
+                        <div class="sub_menu_container_item">
+                            <img src="/static/img/burger_menu_my_projects.svg" alt="">
+                            <a href="{% url 'my_projects' %}">Мои проекты</a>
+                        </div>
+                        <div class="sub_menu_container_item">
+                            <img src="/static/img/burger_menu_achievements.svg" alt="">
+                            <a href="{% url 'all_projects' %}">Достижения</a>
+                        </div>
+                        <div class="sub_menu_container_item">
+                            <img src="/static/img/burger_menu_reports.svg" alt="">
+                            <a href="{% url 'all_projects' %}">Ваши жалобы</a>
+                        </div>
+                        <div class="sub_menu_container_item">
+                            <img src="/static/img/burger_menu_support.svg" alt="">
+                            <a href="{% url 'all_projects' %}">Поддержка</a>
+                        </div>
+                        <div class="sub_menu_container_item">
+                            <img src="/static/img/burger_menu_help_project.svg" alt="">
+                            <a href="{% url 'all_projects' %}">Помощь проекту</a>
+                        </div>
+                        
+                        <div class="sub_menu_container_item sub_menu_container_item-add_project">
+                            <img src="/static/img/burger_menu_add_project.svg" alt="">
+                            <a href="{% url 'all_projects' %}">Добавить проект</a>
+                        </div>
+                    </div>
+                </div>
+                <a class="left_header_logo" href="{% url 'all_projects' %}">
+                    <img src="{% static 'img/logo.svg' %}" alt="" class="logo">StarInvest
+                </a>
+                
+            </div>
+            <div class="right_header">
+                <nav>
+                    <div class="nav_element">
+                        <a href="#">О StarInvest</a>
+                        
+                    </div>
+                    <div class="nav_element">
+                        <a href="#">Главная</a>
+                        
+                    </div>
+                    <div class="nav_element">
+                        <a href="#">Новости</a>
+                    </div>
+                    <div class="nav_element">
+                        <a href="#">Инвестиции</a>
+                    </div>
+                    <div class="nav_element">
+                        <a href="#">Площадки</a>
+                    </div>
+                    <div class="nav_element">
+                        <a href="#">Бизнес идеи</a>
+                    </div>
+                    <div class="nav_element nav_element_proifle">
+                        {% if user.is_authenticated %}
+                            <a href="{% url 'profile' user.id %}">Личный кабинет</a>
+                        {% else %}
+                            <a href="{% url 'signup' %}">Личный кабинет</a>
+                        {% endif %}
+                    </div>
+
+                    <!-- <div class="profile">
+                        {% if request.user.is_authenticated %}
+                        {% if profile.avatar %}
+                            <a href="{% url 'profile' user.id %}">
+                                <img src="{{ profile.avatar.url }}" alt="">
+                            </a>
+                        {% else %}
+                            <a href="{% url 'profile' user.id %}">
+                                <img src="{% static 'img/profile.svg' %}" alt="">
+                            </a>
+                        {% endif %}
+                        <a href="#" class="count_notification">0</a>
+                            {{profile.username}}
+                        {% else %}
+                            <a href="{% url 'signup' %}">
+                                <img src="{% static 'img/profile.svg' %}" alt="">
+                            </a>
+                            <a href="#" class="count_notification">0</a>
+                        {% endif %}
+                    </div> -->
+                </nav>
+            </div>
+        </header>
+        <div class="main_container">
+            <div class="title">
+                <a href="#" class="button_back">
+                    <img src="/static/img/arrow_back.svg" alt=""> Назад
+                </a>
+                <h2>{% block title_page %}{% endblock %}</h2>
+            </div>
+            {% block content %}
+
+            {% endblock %}
+        </div>
+    </div>
+
+    <footer>
+    <div class="footer_logo">
+        <div class="footer_logo_container">
+            <img src="{% static 'img/logo.svg' %}" alt="" class="logo">
+        </div>
+        <h2>STARINVEST PRESENTS</h2>
+    </div>
+
+    <div class="footer_social">
+        <div class="footer_social_item">
+            <a href="#"><img src="/static/img/tg_icon.svg" alt="">@starinvest</a>
+        </div>
+        <div class="footer_social_item">
+            <a href="#"><img src="/static/img/vk_icon.svg" alt="">@starinvest</a>
+        </div>
+        <div class="footer_social_item">
+            <a href="#"><img src="/static/img/inst_icon.svg" alt="">@starinvest</a>
+        </div>
+        <div class="footer_social_item">
+            <a href="#"><img src="/static/img/youtube_icon.svg" alt="">@starinvest</a>
+        </div>
+    </div>
+
+    <div class="footer_info">
+        <span class="footer_info_text">
+            StarInvest 2023-2024
+        </span>
+        <span class="footer_info_text">
+            <a href="#">Пользовательское соглашение</a>
+        </span>
+    </div>
+
+    </footer>
+    <script src="/static/js/BaseTemplateScripts.js"></script>
+</body>
+</html>

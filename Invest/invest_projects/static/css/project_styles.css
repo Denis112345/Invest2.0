@@ -1,0 +1,297 @@
+.project_container {
+    margin-left: 75px;
+    margin-right: 75px;
+}
+
+.project_header {
+    margin-top: 50px;
+    margin-bottom: 35px;
+}
+
+.project_header_logo_div {
+    z-index: 1;
+    background-size: cover;
+    position: relative;
+    margin-bottom: 35px;
+    padding: 35px;
+    border-radius: 50px;
+}
+
+.dimming_block {
+    z-index: 3;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-color: rgba(33, 33, 33, 0.6);
+    backdrop-filter: blur(5px); /* Добавляем эффект размытия */
+    -webkit-backdrop-filter: blur(5px);
+    border-radius: 50px;
+}
+
+.project_category {
+    z-index: 4;
+    top: 35px;
+    left: 35px;
+    padding: 14px 25px;
+    font-size: 20px;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #84DD28;
+    position: absolute;
+    border-radius: 50px;
+}
+
+.project_logo_img {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    background-size: cover;
+    margin: 0 auto;
+    margin-bottom: 15px;
+}   
+
+.project_header_logo_div_container {
+    margin: 0 auto;
+    width: fit-content;
+    position: relative;
+    z-index: 3;
+    margin-bottom: 60px;
+}
+
+.title_proejct {
+    font-size: 32px;
+    color: white;
+    text-align: center;
+}
+
+.project_information {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    position: relative;
+    z-index: 4;
+}
+
+.project_information_text {
+    color: white;
+    display: flex;
+    flex-direction: column;
+    font-size: 20px;
+}
+
+.project_information_text > span {
+    margin-bottom: 5px;
+}
+
+.project_information_text_number {
+    color: #84DD28;
+}
+
+.proven_project_img {
+    width: 62;
+    height: 74px;
+}
+
+.main_info {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 50px;
+}
+
+.project_description {
+    width: 66.13%;
+    display: flex;
+    flex-direction: column;
+    border: 2px solid #84DD28;
+    border-radius: 50px;
+    margin-right: 35px;
+}
+
+.project_description_img {
+    border-radius: 50px;
+    width: 100%;
+    height: 350px;
+    background-size: cover;
+}
+
+.projects_description_text {
+    font-size: 20px;
+    margin: 15px 35px 35px 35px;
+    display: flex;
+    flex-direction: column;
+}
+
+.projects_description_text_city {
+    font-size: 16px;
+    font-weight: bold;
+    margin-top: 15px;
+}
+
+.project_contact {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    width: 33.87%;
+    padding: 35px;
+    border-radius: 50px;
+    background-color: #212121;
+    text-align: center;
+    color: white;
+}
+
+.project_contact_persona {
+    margin-bottom: 33px;
+}
+
+.project_contact_persona_img {
+    width: 250px;
+    height: 250px;
+    border-radius: 50%;
+    margin-bottom: 15px;
+}
+
+.project_contact_persona_username {
+    font-size: 32px;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.project_contact_persona_job {
+    font-size: 16px;
+}
+
+.project_user_contact_buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.user_contact_buttons-item {
+    font-size: 20px;
+    padding: 8px 22px;
+    border-radius: 50px;
+}
+
+.user_contact_buttons-call {
+    background-color: #84DD28;
+    color: #212121;
+}
+
+.user_contact_buttons-message {
+    background-color: #212121;
+    border: 2px solid #84DD28;
+    color: white;
+}
+
+.sub_description {
+    border-top: 2px solid #212121;
+    padding: 0 25px;
+    margin-bottom: 50px;
+}
+
+.project_container > .sub_description:last-of-type {
+    margin-bottom: 100px;
+
+}
+
+
+.sub_description:last-of-type {
+}
+
+.sub_description_title {
+    margin-top: 10px;
+    margin-bottom: 15px;
+    font-size: 32px;
+    font-weight: bold;
+}
+
+.sub_description_text {
+    margin-bottom: 35px;
+}
+
+.sub_description_imgs {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+.sub_description_imgs-item {
+    border-radius: 50px;
+    background-size: cover;
+}
+
+.sub_description_imgs-main_img {
+    width: 100%;
+    height: 450px;
+    margin-bottom: 35px;
+}
+
+.sub_description_imgs-sub_img {
+    width: calc(50% - 25px);
+    height: 350px;
+}
+
+.sub_description_imgs > div:nth-child(2) {
+    margin-right: 50px;
+}
+
+.duplicate-contact {
+    margin: 0 135px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 50px 100px;
+    border-radius: 50px;
+    border: 2px solid black;
+    margin-bottom: 100px;
+    margin-top: 100px;
+}
+
+.duplicate-contact-img_username_job {
+    display: flex;
+    flex-direction: row;
+}
+
+.duplicate-contact-img {
+    background-size: cover;
+    width: 150px;
+    height: 150px;
+    margin-right: 25px;
+}
+
+.duplicate-contact-username_job {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.duplicate-contact-username {
+    font-size: 32px;
+    font-weight: bold;
+}
+
+.duplicate-contact-job {
+    font-size: 16px;
+}
+
+.duplicate-contact_contact_buttons {
+    display: flex;
+    flex-direction: row;
+}
+
+.user_contact_buttons-item {
+    height: fit-content;
+}
+
+.duplicate-contact_contact_buttons .user_contact_buttons-call {
+    margin-right: 30px;
+}

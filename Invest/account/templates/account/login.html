@@ -1,0 +1,37 @@
+{% extends 'base_template_reg_log.html' %}
+
+{% block styles %}
+    <link rel="stylesheet" href="/static/css/login.css">
+{% endblock %}
+
+{% block title %}
+    StarInvest - Вход
+{% endblock %}
+    
+{% block content %}
+    <div class="login_container">
+        <h1>Вход</h1>
+        <form method="POST">
+            {% csrf_token %}
+            <input name="email_or_username" type="text" placeholder="Почта \ Имя Фамилия" class="input_login">
+            <div class="personal-password-container">
+                <input type="password" name="password" placeholder="Пароль" class="input-password" required> 
+                <img src="/static/img/no_eye.svg" alt="">
+            </div>
+            <div class="form_errors">Вывод ошибки</div>
+            <button type="submit">Войти</button>
+            <a href="#" class="forgot_password">
+               <span>Забыл пароль</span> 
+                <hr>
+            </a>
+            <div class="href_registration">
+                <span>Нет аккаунта?</span>
+                <a href="#">
+                    <span>Зарегистируйся!</span>
+                    <hr>
+                </a>
+            </div>
+        </form>
+    </div>
+    <script src="/static/js/LoginScripts.js"></script>
+{% endblock %}

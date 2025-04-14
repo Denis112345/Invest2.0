@@ -1,0 +1,108 @@
+{% extends 'base_template.html' %}
+
+{% block styles %}
+    <link rel="stylesheet" href="/static/css/project_styles.css">
+    <link rel="stylesheet" href="/static/css/add_project_styles.css">
+{% endblock %}
+
+{% block title %}
+    StarInvest - Создать объявление
+{% endblock %}
+
+{% block content %}
+<form method="POST" class="project_container" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="project_header">
+        <div class="header_background_blackout">
+            <div class="button_add_header_background">
+                <input type="file" id="header_background-input" name="background-image" accept="image/*" >
+                <label for="header_background-input">
+                  <div class="avatar-preview">
+                    <span class="avatar-label_header">Задний фон</span>
+                  </div>
+                </label>
+            </div>
+            <select name="category" class="category input_project_category">
+                {% for category in categories %}
+                    <option value="{{category.title}}">{{ category.title }}</option>
+                {% endfor %}
+            </select>
+            <div class="project_avatar">
+                <input type="file" id="avatar-input" name="avatar" accept="image/*" onchange="previewAvatar(event)">
+                <label for="avatar-input">
+                  <div class="avatar-preview">
+                    <span class="avatar-label">Логотип проекта</span>
+                    <img id="avatar-image" src="#" />
+                  </div>
+                </label>
+            </div>
+            <h1><input type="text" id="title-input" name="title" placeholder="Название"></h1>
+            <div class="project_help_info">
+                <div class="profit_required_invest">
+                    Доходность: <input type="text" id="profit-input" name="profit">
+                    <div class="profit_parametr">
+                        Месяц
+                        <input type="radio" name="profit_parametr" value="mouth" checked>
+                        Год
+                        <input type="radio" name="profit_parametr" value="year">
+                        </div>% 
+                    </div>
+                    <div>
+                        Требуемые инвестиции: <input type="text" name="required_invest" id="required_invest"> ₽
+                    </div>
+                <img src="/static/img/shield_svg_icon.svg">
+            </div>
+        </div>
+    </div>
+    <div class="project_body">
+        <div class="project_main_info">
+            <div class="slider">
+                <button id="prev" class="nav-btn">&#60;</button>
+                <div id="slides-container" class="slides-container">
+                    <!-- Слайды будут добавляться динамически -->
+                </div>
+                <button id="next" class="nav-btn">&#62;</button>
+                <button id="addSlide" class="action-btn add-btn">Добавить слайд</button>
+                <button id="removeSlide" class="action-btn remove-btn">Удалить слайд</button>
+            </div>
+            <input type="file" id="fileInput" class="file-input" accept="image/*">
+            <div class="main_info_text">
+                {{ project.description }}
+            </div>
+        </div>
+        <div class="project_contacts">
+            <div class="project_author">
+                <a href="#">
+                    {% if profile.avatar %}
+                        <img src="{{profile.avatar.url}}" alt="">
+                    {% else %}
+                        <img style="border-radius: 0;" src="/static/img/profile_svg_icon.svg" alt="">
+                    {% endif %}
+                </a>
+                <span>{{ user.username }}</span>
+            </div>
+            <!-- <div class="action_project_author author_call">
+                <a href="#">Позвонить</a>
+            </div>
+            <div class="action_project_author author_message">
+                <a href="#">Написать</a>
+            </div> -->
+            <div class="input_author_info">
+                <input type="text" placeholder="Должность" name="author_job_title" id="author_job_title">
+            </div>
+            <div class="input_author_info">
+                <input type="text" placeholder="+79998887766" name="author_phone_number" id="author_phone_number">
+            </div>
+        </div>
+    </div>
+    <div class="project_description">
+        <textarea placeholder="Описание" id="project_description_textarea" name="description" cols="50" rows="10"></textarea>
+    </div>
+    <div class="project_city">
+        Город: <input type="text" id="project_city" name="project_city">
+    </div>
+    <input id="form_submit" type="submit" value="Загрузить">
+</form>
+<script src="/static/js/SliderScript.js"></script>
+<script src="/static/js/AddProjectScripts.js"></script>
+{% endblock %}

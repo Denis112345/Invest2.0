@@ -10,9 +10,22 @@
 
 {% block content %}
 
-    <h2>Регистрация</h2>
+    <h1>Регистрация</h1>
 
-    <form action="/"></form>
+    <form action="/" class="form_signup">
+        <input placeholder="Имя" type="text" class="form_item">
+        <input placeholder="Фамилия" type="text" class="form_item">
+        <input placeholder="Телефон" type="text" class="form_item">
+        <input placeholder="Email" type="text" class="form_item">
+        <div class="form_item_container ">
+            <input placeholder="Пароль" type="password" class="form_item password-input">
+            <img src="/static/img/closed_eye.svg" alt="Не скрывать пароль" class="password_eye">
+        </div>
+        <div class="form_item_container">
+            <input placeholder="Повторите пароль" type="password" class="form_item password-input">
+            <img src="/static/img/closed_eye.svg" alt="Не скрывать пароль" class="password_eye">
+        </div>
+    </form>
 
     <script src="/static/js/SignupScripts.js"></script>
 {% endblock %}

@@ -6,7 +6,9 @@ function simulate_press_alt(e) {
     e.target.dispatchEvent(event);
 }
 
-function foo(e) {
+function phone_input(e) {
+    // docstrings:
+    // функция для ввода номера телефона
     setTimeout(function () {
         // Игнорируем нажатия клавиш, которые не являются цифрами или Backspace
         if (!/\d/.test(e.key) && e.key !== 'Backspace') {
@@ -38,43 +40,43 @@ function foo(e) {
 }
 
 function toggleTooltip() {
+    /*docstrings:
+     функция для отображения и скрытия подсказки
+    */
     const tooltip = document.getElementById('tooltip');
     tooltip.style.display = tooltip.style.display === 'none' ? 'block' : 'none';
 }
 
 const togglePasswordVisibility = (event) => {
-
+    /*docstrings:
+     функция для отображения и скрытия пароля
+    */  
     const input = event.target.previousElementSibling;
-    const type = input.getAttribute('type') === 'password' ? 'text' : 'password'
-    if (type == 'password') {
-        event.target.setAttribute('src', '/static/img/no_eye.svg')
-        event.target.setAttribute('style', 'top: calc(50% - 14px);')
+    const type = input.getAttribute('type') === 'password' ? 'text' : 'password';
+    const img = event.target;
+    if (type === 'password') {
+        img.src = '/static/img/closed_eye.svg';
+        img.style.top = 'calc(50% - 25px)';
     } else {
-        event.target.setAttribute('src', '/static/img/eye.png')
-        event.target.setAttribute('style', 'top: calc(50% - 9px);')
+        img.src = '/static/img/eye.svg';
+        img.style.top = 'calc(50% - 19.5px)';
     }
-    input.setAttribute('type', type)
-
+    input.setAttribute('type', type);
 };
 
-document.getElementById('avatar-input').addEventListener('change', function(event) {
-    const file = event.target.files[0]; // Получаем выбранный файл
-    if (file) {
-        const reader = new FileReader(); // Создаем объект FileReader
-        reader.onload = function(e) {
-            document.getElementById('avatar-preview').src = e.target.result; // Устанавливаем src для img
-        };
-        reader.readAsDataURL(file); // Читаем файл как Data URL
-    }
-});
-
-document.querySelectorAll('.personal-password-container').forEach(img => {
+document.querySelectorAll(' .password_eye').forEach(img => {
+    /*docstrings:
+     функция для отображения и скрытия пароля
+    */
     img.addEventListener('click', togglePasswordVisibility);
 });
 
-document.querySelector('input[name="phone"]').addEventListener('keydown', foo);
+// document.querySelector('input[name="phone"]').addEventListener('keydown', phone_input);
 
-document.getElementById('form_signup').addEventListener('submit', function(event) {
+document.getElementsByClassName('form_signup')[0]   .addEventListener('submit', function(event) {
+    /*docstrings:
+     функция для отправки формы
+    */
     event.preventDefault(); // Предотвращаем стандартное поведение отправки формы
 
     // Получаем значения из полей имени и фамилии

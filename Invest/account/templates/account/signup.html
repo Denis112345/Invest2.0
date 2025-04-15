@@ -12,20 +12,40 @@
 
     <h1>Регистрация</h1>
 
-    <form action="/" class="form_signup">
-        <input placeholder="Имя" type="text" class="form_item">
-        <input placeholder="Фамилия" type="text" class="form_item">
-        <input placeholder="Телефон" type="text" class="form_item">
-        <input placeholder="Email" type="text" class="form_item">
-        <div class="form_item_container ">
-            <input placeholder="Пароль" type="password" class="form_item password-input">
-            <img src="/static/img/closed_eye.svg" alt="Не скрывать пароль" class="password_eye">
+    <form action="/" class="form_signup" method="post">
+        <input placeholder="Имя" type="text" class="form_item" name="first_name" required>
+        <input placeholder="Фамилия" type="text" class="form_item" name="last_name" required>
+        <input type="hidden" name="username">
+        <input placeholder="Телефон" type="text" class="form_item" name="phone" required onkeydown="phone_input(event)">
+        <input placeholder="Email" type="email" class="form_item" name="email" required>
+        <div class="form_item_container">
+            <input placeholder="Пароль" type="password" class="form_item password-input" name="password" required>
+            <img src="/static/img/closed_eye.svg" alt="Показать пароль" class="password_eye">
         </div>
         <div class="form_item_container">
-            <input placeholder="Повторите пароль" type="password" class="form_item password-input">
-            <img src="/static/img/closed_eye.svg" alt="Не скрывать пароль" class="password_eye">
+            <input placeholder="Повторите пароль" type="password" class="form_item password-input" name="password2" required>
+            <img src="/static/img/closed_eye.svg" alt="Показать пароль" class="password_eye">
         </div>
+        <div class="form_item_container_choice_role">
+            <div class="clue" onclick="toggleTooltip()">
+                ?
+            </div>
+            <div id="tooltip" class="tooltip">
+                Выберите свою роль в системе. Инвестор может инвестировать в проекты, а предприниматель может создавать и управлять своими проектами.
+            </div>
+            <div class="form_item_container_choice_role_item">
+                <input type="radio" name="role" value="investor" id="investor" class="role_radio" required>
+                <label for="investor" class="wrapper_choice_role_item">Я инвестор</label>
+            </div>
+            <div class="form_item_container_choice_role_item">
+                <input type="radio" name="role" value="entrepreneur" id="entrepreneur" class="role_radio">
+                <label for="entrepreneur" class="wrapper_choice_role_item">Я предприниматель</label>
+            </div>
+        </div>
+        <button type="submit" class="form_button">
+            Зарегистрироваться
+        </button>
     </form>
 
-    <script src="/static/js/SignupScripts.js"></script>
+    <script src="/static/js/signupScripts.js"></script>
 {% endblock %}

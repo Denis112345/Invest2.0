@@ -1,0 +1,166 @@
+/* Шрифты */
+@font-face {
+    font-family: 'Helvetica';
+    src: url('./fonts/helvatica_regular.otf') format('otf');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* Основные стили */
+body {
+    font-family: 'Helvetica', sans-serif;
+}
+
+h1 {
+    text-align: center;
+    margin-top: 25px;
+    margin-bottom: 35px;
+}
+
+/* Форма */
+.form_signup {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    width: 60.6%;
+    margin: 0 auto;
+    margin-bottom: 200px;
+}
+
+.form_item {
+    width: calc(48.5% - 50px);
+    padding: 10px 25px;
+    border: 1px solid #000;
+    border-radius: 30px;
+    font-size: 20px;
+    margin-bottom: 25px;
+}
+
+.form_item.error {
+    border-color: #ff0000;
+}
+
+.form_item_container {
+    width: 48.5%;
+    position: relative;
+    margin-bottom: 25px;
+}
+
+.error-message {
+    color: #ff0000;
+    font-size: 14px;
+    position: absolute;
+    bottom: -20px;
+    left: 25px;
+}
+
+.password-input {
+    width: calc(100% - 50px);
+}
+
+.password_eye {
+    position: absolute;
+    right: 25px;
+    top: calc(50% - 25px);
+}
+
+.form_item_container_choice_role {
+    margin: 0 auto;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    font-size: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    position: relative;
+}
+
+.form_item_container_choice_role_item {
+    width: calc(50% - 12.5px);
+    display: flex;
+    justify-content: end;
+}
+
+.form_item_container_choice_role_item:last-child {
+    justify-content: start;
+}
+
+.wrapper_choice_role_item {
+    padding: 10px 25px;
+    border: 1px solid #000;
+    border-radius: 30px;
+    text-align: center;
+    display: block;
+}
+
+.wrapper_choice_role_item:hover {
+    background-color: #84DD28;
+    color: #fff;
+    cursor: pointer;
+}
+
+.role_radio:checked + .wrapper_choice_role_item {
+    background-color: #84DD28;
+    color: #fff;
+}
+
+.clue {
+    position: absolute;
+    top: 50%;
+    left: 25%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    width: fit-content;
+    padding: 3px 7px;
+    background-color: #84DD28;
+    border-radius: 10px;
+    font-size: 20px;
+    margin-bottom: 10px;
+    width: 13px;
+    font-weight: bold;
+    margin-right: 25px;
+}
+
+.clue:hover {
+    cursor: pointer;
+}
+
+.form_button {
+    width: fit-content;
+    padding: 10px 25px;
+    border-radius: 30px;
+    font-weight: bold;
+    font-size: 20px;
+    margin: 0 auto;
+    background-color: #84DD28;
+    border: none;
+}
+
+.form_button:hover {
+    cursor: pointer;
+}
+
+.role_radio {
+    display: none;
+}
+
+.tooltip {
+    display: none;
+    position: absolute;
+    background-color: #fff;
+    border: 1px solid #000;
+    border-radius: 10px;
+    padding: 15px;
+    width: 300px;
+    top: 50%;
+    right: 100%;
+    margin-right: 5px;
+    transform: translateY(-50%);
+    z-index: 1000;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    margin-right: -20%;
+}

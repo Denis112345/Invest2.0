@@ -29,9 +29,24 @@ class SignupForm(UserCreationForm):
     """
         Форма для регистрацию через почту
     """
-    first_name = forms.CharField(label='Имя', max_length=30)
-    last_name = forms.CharField(label='Фамилия', max_length=30)
-    avatar = forms.ImageField(label='аватар')
+    first_name = forms.CharField(
+        label='Имя',
+        max_length=30,
+        min_length=2,
+        required=True,
+        error_messages={
+            "required": "Обязательное поле"
+        }
+    )
+    last_name = forms.CharField(
+        label='Фамилия',
+        max_length=30,
+        min_length=5,
+        required=True,
+        error_messages={
+            "required": "Обязательное поле"
+        }
+        )
     username = forms.CharField(
         max_length=60,
         required=True,
@@ -81,16 +96,29 @@ class SignupForm(UserCreationForm):
             Конфигурация формы
         """
         model = User
-        fields = ("first_name","last_name","username", "email", "password1", "password2","avatar")
+        fields = ("first_name", "last_name", "username", "email", "password1", "password2")
 
-
+    def clean_first_name(self):
+        if not self.cleaned_data['first_name'].strip():
+            raise forms.ValidationError("Обязательное поле")
+        elif len(self.cleaned_data['first_name']) < 2:
+            raise forms.ValidationError("Минимум 2 знака")
+        else:
+            return self.cleaned_data['first_name']
+        
+    def clean_last_name(self):
+        if not self.cleaned_data['last_name'].strip():
+            raise forms.ValidationError("Обязательное поле")
+        elif len(self.cleaned_data['last_name']) < 5:
+            raise forms.ValidationError("Минимум 5 знаков")
+        else:
+            return self.cleaned_data['last_name']
+        
     def clean_username(self):
         if not self.cleaned_data['username'].strip():
             raise forms.ValidationError("Обязательное поле")
         elif len(self.cleaned_data['username']) < 5:
             raise forms.ValidationError("Минимум 5 знаков")
-        else:
-            return self.cleaned_data['first_name'] + '_' + self.cleaned_data['last_name']
         
     
     def clean_email(self):
@@ -111,17 +139,26 @@ class SignupForm(UserCreationForm):
         except phonenumbers.phonenumberutil.NumberParseException:
             raise ValidationError("Неверный номер телефона")
         return self.cleaned_data['phone']
-    
-    
+
     def clean_password2(self):
         cdata = self.cleaned_data
-        print(cdata)
-        if "password2" not in cdata:
-            raise forms.ValidationError("Минимум 5 знаков")
+        if "password1" not in cdata or "password2" not in cdata:
+            return
         if cdata["password1"] != cdata["password2"]:
             raise forms.ValidationError("Пароли не совпадают")
         else:
             return cdata["password2"]
+        
+    def clean(self):
+        cleaned_data: dict = super().clean()
+
+        first_name: str = cleaned_data.get('first_name')
+        last_name: str = cleaned_data.get('last_name')
+
+        if first_name and last_name:
+            cleaned_data['username'] = f'{first_name}_{last_name}'
+            
+        return cleaned_data
         
     
 class SignIn(forms.ModelForm):

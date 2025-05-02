@@ -1,116 +1,116 @@
-form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+/* Шрифты */
+@font-face {
+    font-family: 'Helvetica';
+    src: url('./fonts/helvatica_regular.otf') format('otf');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* Основные стили */
+body {
+    font-family: 'Helvetica', sans-serif;
 }
 
 h1 {
-    font-size: 32px;
     text-align: center;
-    margin: 0;
+    margin-top: 25px;
     margin-bottom: 35px;
-    margin-top: 51px;
 }
 
-button {
-    padding: 14px 25px;
-    background-color: #84DD28;
-    color: black;
-    font-size: 20px;
-    border: 0;
-    border-radius: 50px;
-    margin-bottom: 10px;
+/* Форма */
+.form_signup {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    width: 40%;
     margin: 0 auto;
-    font-weight: bold;
-    cursor: pointer;
+    margin-bottom: 72px;
 }
 
-input {
-    width: calc(100% - 50px);
-}
-
-.input_login {
-    border: 1px solid black;
-    padding: 14px 25px;
-    border-radius: 50px;
+.form_item {
+    width: 100%;
+    padding: 10px 25px;
+    border: 1px solid #000;
+    border-radius: 30px;
     font-size: 20px;
     margin-bottom: 25px;
 }
 
-.login_container {
-    margin-top: 51px;
-    width: 39.5%;
-    margin: 0 auto;
+.form_item.error {
+    border-color: #ff0000;
 }
 
-.personal-password-container {
-    border-radius: 50px;
+.form_item_container {
+    width: 100%;
     position: relative;
-    width: 100%;
+    margin-bottom: 25px;
 }
 
-form .personal-password-container:nth-child(3){
-    margin-bottom: 42px;
-}
-
-.personal-password-container input{
-    border: 1px solid black;
-    padding: 14px 25px;
-    border-radius: 50px;
-    font-size: 20px;
-}
-
-.personal-password-container img {
-    width: 28px;
+.error-message {
+    color: #ff0000;
+    font-size: 14px;
     position: absolute;
-    right: 12px;
-    top: calc(50% - 14px);
-    padding-left: 5px;
+    bottom: -20px;
+    left: 25px;
 }
 
-.form_errors {
-    padding: 14px 55px;
-    border-radius: 50px;
-    background-color: #FF2800;
-    width: fit-content;
-    color: white;
+.password-input {
+    width: calc(100% - 50px);
+}
+
+.password_eye {
+    position: absolute;
+    right: 25px;
+    top: calc(50% - 25px);
+}
+
+.form_button {
+    padding: 10px 25px;
+    font-size: 20px;
+    font-weight: bold;
+    background-color: #84DD28;
+    border: none;
+    border-radius: 30px;
+    margin: 0 auto
+}
+
+.form_button:hover {
+    cursor: pointer;
+}
+.form_button_container {
+    display: flex;
+    flex-direction: column;
     margin: 0 auto;
-    margin-bottom: 50px;
 }
 
-.forgot_password {
-    text-decoration: none;
+.form_forgot_password, .signup_link_container {
+    text-align: center;
+    padding: 0px 10px;
     margin-top: 10px;
-    margin-bottom: 72px;
+    border-bottom: 2px solid #84DD28;
+    width: fit-content;
+    padding: 0px 10px;
 }
 
-.forgot_password span {
-    margin-left: 15px;
-    margin-right: 15px;
+.form_forgot_password a {
+    text-decoration: none;
+    color: #000;
 }
 
-.forgot_password hr, .href_registration hr {
-    height: 5px;
-    background-color:#84DD28;
-    border-radius: 5px;
-    border: 0;
-    width: 100%;
-    margin-top: 2px;
+.form_button {
+    margin: 0 auto;
 }
 
-.href_registration {
+.signup_container {
     font-size: 20px;
     display: flex;
-    flex-direction: row;
+    justify-content: center;
+    align-items: center;
     margin-bottom: 138px;
 }
 
-.href_registration a {
-    display: flex;
-    flex-direction: column;
-}
-
-.href_registration span {
-    margin-left: 15px;
-    margin-right: 15px;
+.signup_container span {
+    margin-top: 10px;
 }

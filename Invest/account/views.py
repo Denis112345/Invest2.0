@@ -1,3 +1,4 @@
+from typing import Union
 from django.contrib.auth.models import User
 from django.shortcuts import render,redirect,resolve_url
 from django.contrib.sites.shortcuts import get_current_site
@@ -27,7 +28,10 @@ def calculate_image_hash(image):
         img_hash = hashlib.md5(img.tobytes()).hexdigest()
     return img_hash
 
-def Signup(request: HttpRequest) -> HttpResponse:
+def SignupLinkSent(request: HttpRequest) -> HttpResponse:
+    return render('account/signup_link_sent.html')
+
+def Signup(request: HttpRequest) -> Union[JsonResponse, HttpResponse]:
     """
         Вьюшка для регистрации через почту
     """
@@ -45,14 +49,11 @@ def Signup(request: HttpRequest) -> HttpResponse:
                 user.username = request.POST['username']
                 user.save()
 
-                avatar = request.FILES.get('avatar')
-
                 profile = Profile(
                     user=user,
                     username=request.POST['username'],
                     phone_number=request.POST['phone'],
                     interest=request.POST['interest'],
-                    avatar=avatar
                 )
                 profile.save()
                 current_site = get_current_site(request)
@@ -76,12 +77,9 @@ def Signup(request: HttpRequest) -> HttpResponse:
                 print(e)
                 user.delete()
                 
-            return render(request, 'account/signup_link_send.html')
-
+            return JsonResponse({'status': 200})
         else:
-            cleaned_data = form.cleaned_data
-            print(form.errors)
-            return render(request, 'account/signup.html', {'form':form, "cleaned_data": cleaned_data, 'errors':form.errors})
+            return JsonResponse({'status': 400, 'errors': form.errors})
 
 def LogIn(request: HttpRequest) -> HttpResponse:
     if request.method == 'GET':
@@ -158,26 +156,6 @@ def edit_profile(request):
         status = request.POST['status'] or profile_bd.profile_status
         profile_info = request.POST['profile_info'].strip() or profile_bd.profile_info
 
-        # for profile_image in profile_bd.images.all():
-        #     for img_path in images_in_post:
-        #         img_path_post = img_path.replace('/', '\\')
-        #         img_path_bd = profile_image.image.path
-
-        #         if img_path_post in img_path_bd.replace('/', '\\'):
-        #             images_in_post.remove()
-        #             continue
-        #         else:
-        #             print(f"{img_path} not in {profile_image.image.path}")
-        #             profile_bd.images.remove(profile_image)
-        #             profile_image.delete()
-
-        # print(profile_bd.images.all())
-        # profile_bd.save()
-        # print(images_in_post)
-        # for photo_url in images_in_post:
-        #     full_path = os.path.join(BASE_DIR, photo_url[1:])
-        #     photos_content.append(full_path)
-        #     print('APPEND_POST')
         if len(request.FILES.getlist('images')) == 0:
             for img in profile_bd.images.all():
                 img.delete()
@@ -188,12 +166,10 @@ def edit_profile(request):
             photos_content = []
 
             for photo_file in request.FILES.getlist('images'):
-                    print('APPEND_FILES')
                     photos_content.append(photo_file)
             for image in photos_content:
                 img_bd = ProfileImage.objects.create(profile=profile_bd, image=image)
                 profile_bd.images.add(img_bd)
-                print('!!!!')
 
         profile_bd.avatar = avatar
         profile_bd.user.username = username

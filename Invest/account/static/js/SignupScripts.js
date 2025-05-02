@@ -1,10 +1,4 @@
-function simulate_press_alt(e) {
-    let event = new KeyboardEvent('keydown', {
-        key: 'Alt', // Нажата клавиша Alt
-        altKey: true, // Устанавливаем, что нажата именно клавиша Alt
-    });
-    e.target.dispatchEvent(event);
-}
+const formSignUp = document.getElementsByClassName('form_signup')[0]
 
 function phone_input(e) {
     // docstrings:
@@ -30,7 +24,6 @@ function phone_input(e) {
         if (e.key === 'Backspace') {
             if (input.length > 0) {
                 let x = input.match(/(\d{1})(\d{0,3})(\d{0,3})(\d{0,2})(\d{0,2})/);
-                console.log(x)
                 if (x) {
                     e.target.value = '+7 ' + (x[2] ? '(' + x[2] : '') + (x[3] ? ') ' + x[3] : '') + (x[4] ? '-' + x[4] : '') + (x[5] ? '-' + x[5] : '');
                 }
@@ -44,7 +37,11 @@ function toggleTooltip() {
      функция для отображения и скрытия подсказки
     */
     const tooltip = document.getElementById('tooltip');
-    tooltip.style.display = tooltip.style.display === 'none' ? 'block' : 'none';
+    if (tooltip.style.display === 'none' || tooltip.style.display === '') {
+        tooltip.style.display = 'block';
+    } else {
+        tooltip.style.display = 'none';
+    }
 }
 
 const togglePasswordVisibility = (event) => {
@@ -56,134 +53,108 @@ const togglePasswordVisibility = (event) => {
     const img = event.target;
     if (type === 'password') {
         img.src = '/static/img/closed_eye.svg';
-        img.style.top = 'calc(50% - 25px)';
+        img.style.top = '9px';
     } else {
         img.src = '/static/img/eye.svg';
-        img.style.top = 'calc(50% - 19.5px)';
+        img.style.top = '13px';
     }
     input.setAttribute('type', type);
 };
 
 document.querySelectorAll(' .password_eye').forEach(img => {
-    /*docstrings:
-     функция для отображения и скрытия пароля
-    */
     img.addEventListener('click', togglePasswordVisibility);
 });
 
-// document.querySelector('input[name="phone"]').addEventListener('keydown', phone_input);
-
-document.getElementsByClassName('form_signup')[0].addEventListener('submit', function(event) {
-    event.preventDefault();
-    
-    let isValid = true;
-    const inputs = document.querySelectorAll('.form_item');
-    
-    inputs.forEach(input => {
-        if (!validateField(input)) {
-            isValid = false;
-        }
-    });
-
-    if (isValid) {
-        // Получаем значения из полей имени и фамилии
-        const firstName = document.querySelector('input[name="first_name"]').value;
-        const lastName = document.querySelector('input[name="last_name"]').value;
-        // Присваиваем значение полю username
-        const usernameInput = document.querySelector('input[name="username"]');
-        usernameInput.value = `${firstName} ${lastName}`;
-        this.submit();
-    }
-});
-
-function validateField(input) {
-    const container = input.closest('.form_item_container') || input.parentNode;
-    const errorDiv = container.querySelector('.error-message');
-    if (errorDiv) {
-        errorDiv.remove();
-    }
-
-    if (!input.value.trim()) {
-        showError(input, 'Это поле обязательно для заполнения');
-        return false;
-    }
-
-    if (input.type === 'email' && !isValidEmail(input.value)) {
-        showError(input, 'Введите корректный email');
-        return false;
-    }
-
-    if (input.name === 'phone' && !isValidPhone(input.value)) {
-        showError(input, 'Введите корректный номер телефона');
-        return false;
-    }
-
-    if (input.classList.contains('password-input')) {
-        if (input.name === 'password' && input.value.length < 8) {
-            showError(input, 'Пароль должен содержать минимум 8 символов');
-            return false;
-        }
-        if (input.name === 'password2') {
-            const password1 = document.querySelector('input[name="password"]').value;
-            if (password1 && input.value && input.value !== password1) {
-                showError(input, 'Пароли не совпадают');
-                return false;
-            }
-        }
-    }
-
-    return true;
+/* ERROR MESSAGES */
+function createErrorDiv(errorMessage){
+    let errorDiv = document.createElement('div')
+    errorDiv.classList.add('error-message')
+    errorDiv.innerHTML = errorMessage
+    return errorDiv
 }
 
-function isValidEmail(email) {
-    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return re.test(email);
+function insertErrorDiv(nameInput, errorDiv) {
+    if (nameInput == 'username'){ return }
+    console.log(nameInput)
+    input = document.getElementsByName(nameInput)[0]
+    inputContainer = input.parentNode
+    inputContainer.insertBefore(errorDiv, input.nextSibling)
 }
 
-function isValidPhone(phone) {
-    const re = /^\+7 \(\d{3}\) \d{3}-\d{2}-\d{2}$/;
-    return re.test(phone);
+function clearingErrorDivs() {
+    let errorDivs = document.querySelectorAll('.error-message')
+    errorDivs.forEach(errorDiv => {
+        errorDiv.remove()
+    })
 }
 
-function showError(input, message) {
-    input.classList.add('error');
-    const errorDiv = document.createElement('div');
-    errorDiv.className = 'error-message';
-    errorDiv.textContent = message;
-    const container = input.closest('.form_item_container') || input.parentNode;
-    container.appendChild(errorDiv);
+function createAndInsertErrorDivs(errors) {
+    clearingErrorDivs()
+    Object.keys(errors).forEach(key => {
+        if (key == 'username'){ return }
+        let errorDiv = createErrorDiv(errors[key])
+        insertErrorDiv(key, errorDiv)
+    })
 }
 
-function removeError(input) {
-    input.classList.remove('error');
-    const container = input.closest('.form_item_container') || input.parentNode;
-    const errorDiv = container.querySelector('.error-message');
-    if (errorDiv) {
-        errorDiv.remove();
+function conertObjToFormData(obj) {
+    const formData = new FormData()
+    Object.keys(obj).forEach(key => {
+        formData.append(key, obj[key])
+    })
+    return formData
+}
+
+function gerFormData(form) {
+    let formData = new FormData(form)
+    let data = {}
+    formData.forEach((value, key) => {
+        data[key] = value
+    })
+    return data
+}
+
+async function fetchSignup(request_body) {
+    const reponse = await fetch(window.location.href, {
+        method: 'POST',
+        headers: {
+            'X-CSRFToken': request_body['csrfmiddlewaretoken']
+        },
+        body: conertObjToFormData(request_body),
+    })
+    const result = await reponse.json()
+    return result
+}
+
+function changeInputsColorByErrors(errors) {
+    Object.keys(errors).forEach(key => {
+        if (key == 'username'){ return }
+        input = document.getElementsByName(key)[0]
+        input.style.borderColor = 'red'
+    })
+}
+
+function handleSignupResponse(result) {
+    if (result.status == 200) {
+        window.location.href = '/account/signup_link_sent/'
+    }
+    else {
+        createAndInsertErrorDivs(result.errors)
+        changeInputsColorByErrors(result.errors)
     }
 }
 
-document.querySelectorAll('.form_item').forEach(input => {
-    input.addEventListener('blur', () => {
-        // Для второго пароля проверяем совпадение только если оба пароля введены
-        if (input.name === 'password2') {
-            const password1 = document.querySelector('input[name="password"]').value;
-            if (password1 && input.value) {
-                validateField(input);
-            }
-        } else {
-            validateField(input);
-        }
-    });
+formSignUp.addEventListener('submit', async function(event) {
+    event.preventDefault()
 
-    input.addEventListener('input', () => {
-        removeError(input);
-        // Если это первый пароль и второй уже введен, проверяем их совпадение
-        if (input.name === 'password') {
-            const password2 = document.querySelector('input[name="password2"]');
-            if (password2.value) {
-                validateField(password2);
-            }
-        }
-    });
-});
+    let data = gerFormData(formSignUp)
+    data['username'] = `${data['first_name']} ${data['last_name']}`
+
+    try{
+        let result = await fetchSignup(data)
+        handleSignupResponse(result)
+    }
+    catch (error) {
+        console.log('Ошибка отправки формы: ', error)
+    }
+})

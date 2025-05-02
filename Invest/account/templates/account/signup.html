@@ -12,39 +12,57 @@
 
     <h1>Регистрация</h1>
 
-    <form action="/" class="form_signup" method="post">
-        <input placeholder="Имя" type="text" class="form_item" name="first_name" required>
-        <input placeholder="Фамилия" type="text" class="form_item" name="last_name" required>
-        <input type="hidden" name="username">
-        <input placeholder="Телефон" type="text" class="form_item" name="phone" required onkeydown="phone_input(event)">
-        <input placeholder="Email" type="email" class="form_item" name="email" required>
+    <form class="form_signup" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
         <div class="form_item_container">
-            <input placeholder="Пароль" type="password" class="form_item password-input" name="password" required>
+            <input placeholder="Имя" type="text" class="form_item" name="first_name" required>
+        </div>
+        <div class="form_item_container">
+            <input placeholder="Фамилия" type="text" class="form_item" name="last_name" required>
+        </div>
+        <input type="hidden" name="username">
+        <div class="form_item_container">
+            <input placeholder="Телефон" type="text" class="form_item" name="phone" required onkeydown="phone_input(event)">
+        </div>
+        <div class="form_item_container">
+            <input placeholder="Email" type="email" class="form_item" name="email" required>
+        </div>
+        <div class="form_item_container">
+            <input placeholder="Пароль" type="password" class="form_item password-input" name="password1" required>
             <img src="/static/img/closed_eye.svg" alt="Показать пароль" class="password_eye">
         </div>
         <div class="form_item_container">
             <input placeholder="Повторите пароль" type="password" class="form_item password-input" name="password2" required>
             <img src="/static/img/closed_eye.svg" alt="Показать пароль" class="password_eye">
         </div>
-        <div class="form_item_container_choice_role">
-            <div class="clue" onclick="toggleTooltip()">
-                ?
-            </div>
+        <div class="form_item_container form_item_container_choice_role">
+
             <div id="tooltip" class="tooltip">
                 Выберите свою роль в системе. Инвестор может инвестировать в проекты, а предприниматель может создавать и управлять своими проектами.
             </div>
             <div class="form_item_container_choice_role_item">
-                <input type="radio" name="role" value="investor" id="investor" class="role_radio" required>
-                <label for="investor" class="wrapper_choice_role_item">Я инвестор</label>
+                <div class="wrapper_toggle_role">
+                    <div class="clue" onclick="toggleTooltip()">
+                        ?
+                    </div>
+                    <input type="radio" name="interest" checked value="investing" id="investor" class="role_radio" required>
+                    <label for="investor" class="wrapper_choice_role_item">Я инвестор</label>
+                </div>
             </div>
             <div class="form_item_container_choice_role_item">
-                <input type="radio" name="role" value="entrepreneur" id="entrepreneur" class="role_radio">
+                <input type="radio" name="project" value="entrepreneur" id="entrepreneur" class="role_radio">
                 <label for="entrepreneur" class="wrapper_choice_role_item">Я предприниматель</label>
             </div>
         </div>
         <button type="submit" class="form_button">
             Зарегистрироваться
         </button>
+        <div class="form_signup_footer">
+            <span>Зарегистрированы ранее?</span>
+            <span>Нажмите здесь, чтобы <a href="{% url 'login' %}">войти</a></span>
+        </div>
+        <a href="#" class="form_signup_footer_forgot_password">Забыл пароль</a>
+        {{errors}}
     </form>
 
     <script src="/static/js/signupScripts.js"></script>
